@@ -1,11 +1,12 @@
-from dataclasses import dataclass
 from typing import List, Optional, Union
 
 
-@dataclass
 class StackValue:
-    value: int
-    local_max: int
+    __slots__ = ['value', 'local_max']
+
+    def __init__(self, value, local_max):
+        self.value = value
+        self.local_max = local_max
 
 
 class StackMaxEffective:
