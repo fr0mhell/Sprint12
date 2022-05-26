@@ -18,9 +18,12 @@ class PuzzleGTestCase(TestCase):
             with self.subTest(f'{order + 1}. {inp}'):
                 result = method(*value)
 
-                expected_stack, expected_output = expected_states[order]
+                expected_local_max, expected_stack, expected_output = expected_states[order]
 
-                self.assertListEqual(self.stack.stack, expected_stack)
+                local_max = [s.local_max for s in self.stack.state]
+                stack_state = [s.value for s in self.stack.state]
+                self.assertListEqual(local_max, expected_local_max)
+                self.assertListEqual(stack_state, expected_stack)
                 self.assertEqual(result, expected_output)
 
     def test_4(self):
@@ -59,37 +62,37 @@ class PuzzleGTestCase(TestCase):
         """
         input_values = get_clean_values(raw_input)
         expected_states = [
-            ([], 'None'),
-            ([-7], None),
-            ([], None),
-            ([], 'None'),
-            ([], 'error'),
-            ([2], None),
-            ([2], 2),
-            ([], None),
-            ([], 'None'),
-            ([7], None),
-            ([7, -5], None),
-            ([7], None),
-            ([7, -6], None),
-            ([7], None),
-            ([7], 7),
-            ([], None),
-            ([], 'None'),
-            ([], 'None'),
-            ([], 'error'),
-            ([-4], None),
-            ([-4, 10], None),
-            ([-4, 10, -8], None),
-            ([-4, 10, -8, -6], None),
-            ([-4, 10, -8, -6, -10], None),
-            ([-4, 10, -8, -6, -10, 0], None),
-            ([-4, 10, -8, -6, -10], None),
-            ([-4, 10, -8, -6, -10, 7], None),
-            ([-4, 10, -8, -6, -10, 7], 10),
-            ([-4, 10, -8, -6, -10, 7, 3], None),
-            ([-4, 10, -8, -6, -10, 7, 3, -10], None),
-            ([-4, 10, -8, -6, -10, 7, 3, -10], 10),
+            ([], [], 'None'),
+            ([-7], [-7], None),
+            ([], [], None),
+            ([], [], 'None'),
+            ([], [], 'error'),
+            ([2], [2], None),
+            ([2], [2], 2),
+            ([], [], None),
+            ([], [], 'None'),
+            ([7], [7], None),
+            ([7, 7], [7, -5], None),
+            ([7], [7], None),
+            ([7, 7], [7, -6], None),
+            ([7], [7], None),
+            ([7], [7], 7),
+            ([], [], None),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([], [], 'error'),
+            ([-4], [-4], None),
+            ([-4, 10], [-4, 10], None),
+            ([-4, 10, 10], [-4, 10, -8], None),
+            ([-4, 10, 10, 10], [-4, 10, -8, -6], None),
+            ([-4, 10, 10, 10, 10], [-4, 10, -8, -6, -10], None),
+            ([-4, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 0], None),
+            ([-4, 10, 10, 10, 10], [-4, 10, -8, -6, -10], None),
+            ([-4, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 7], None),
+            ([-4, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 7], 10),
+            ([-4, 10, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 7, 3], None),
+            ([-4, 10, 10, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 7, 3, -10], None),
+            ([-4, 10, 10, 10, 10, 10, 10, 10], [-4, 10, -8, -6, -10, 7, 3, -10], 10),
         ]
 
         self.common_test(input_values, expected_states)
@@ -104,12 +107,12 @@ class PuzzleGTestCase(TestCase):
             'get_max',
         ]
         expected_states = [
-            ([0], None),
-            ([0, 1], None),
-            ([0, 1], 1),
-            ([0, 1], 1),
-            ([0], None),
-            ([0], 0),
+            ([0], [0], None),
+            ([0, 1], [0, 1], None),
+            ([0, 1], [0, 1], 1),
+            ([0, 1], [0, 1], 1),
+            ([0], [0], None),
+            ([0], [0], 0),
         ]
 
         self.common_test(input_values, expected_states)
@@ -146,33 +149,33 @@ push 4
         """
         input_values = get_clean_values(raw_input)
         expected_states = [
-            ([], 'None'),
-            ([], 'error'),
-            ([-7], None),
-            ([], None),
-            ([], 'None'),
-            ([], 'None'),
-            ([], 'None'),
-            ([], 'None'),
-            ([1], None),
-            ([1], 1),
-            ([1], 1),
-            ([1, 3], None),
-            ([1], None),
-            ([], None),
-            ([], 'None'),
-            ([], 'None'),
-            ([], 'None'),
-            ([-3], None),
-            ([-3], -3),
-            ([-3], -3),
-            ([-3, 0], None),
-            ([-3, 0, 9], None),
-            ([-3, 0, 9], 9),
-            ([-3, 0, 9], 9),
-            ([-3, 0], None),
-            ([-3, 0], 0),
-            ([-3, 0, 4], None),
+            ([], [], 'None'),
+            ([], [], 'error'),
+            ([-7], [-7], None),
+            ([], [], None),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([1], [1], None),
+            ([1], [1], 1),
+            ([1], [1], 1),
+            ([1, 3], [1, 3], None),
+            ([1], [1], None),
+            ([], [], None),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([], [], 'None'),
+            ([-3], [-3], None),
+            ([-3], [-3], -3),
+            ([-3], [-3], -3),
+            ([-3, 0], [-3, 0], None),
+            ([-3, 0, 9], [-3, 0, 9], None),
+            ([-3, 0, 9], [-3, 0, 9], 9),
+            ([-3, 0, 9], [-3, 0, 9], 9),
+            ([-3, 0], [-3, 0], None),
+            ([-3, 0], [-3, 0], 0),
+            ([-3, 0, 4], [-3, 0, 4], None),
         ]
 
         self.common_test(input_values, expected_states)

@@ -1,19 +1,42 @@
+from dataclasses import dataclass
+from typing import List, Optional, Union
+
+
+@dataclass
+class StackValue:
+    value: int
+    local_max: int
+
+
 class StackMaxEffective:
     def __init__(self):
-        self.stack = []
+        self.state: List[StackValue] = []
 
-    def push(self, value):
-        self.stack.append(value)
+    @property
+    def local_max(self) -> Optional[int]:
+        if self.state:
+            return self.state[-1].local_max
 
-    def pop(self, *args):
-        if not self.stack:
+    def push(self, value: int) -> None:
+        local_max = self.local_max
+        if local_max is None or value > local_max:
+            local_max = value
+
+        stack_value = StackValue(
+            value=value,
+            local_max=local_max,
+        )
+        self.state.append(stack_value)
+
+    def pop(self, *args: int) -> Optional[str]:
+        if not self.state:
             return 'error'
-        self.stack.pop()
+        self.state.pop()
 
-    def get_max(self, *args):
-        if not self.stack:
+    def get_max(self, *args: int) -> Union[str, int]:
+        if self.local_max is None:
             return 'None'
-        return max(self.stack)
+        return self.local_max
 
 
 if __name__ == '__main__':
