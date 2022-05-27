@@ -12,4 +12,4 @@ class PuzzleLTestCase(TestCase):
     def test_fibonacci(self):
         for n, expected in enumerate(self.expected):
             with self.subTest(n=n, expected=expected):
-                self.assertEqual(fibonacci(n), expected)
+                self.assertEqual(fibonacci(n, 10 ** 3), expected)
