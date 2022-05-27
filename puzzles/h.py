@@ -19,12 +19,15 @@ def parentheses_sequence(sequence: str) -> bool:
             continue
 
         if symbol in closing:
+            if not parentheses_stack:
+                return False
+
             opening_symbol = parentheses_stack.pop()
             expected_closing = pairs.get(opening_symbol)
             if expected_closing != symbol:
                 return False
 
-    return True
+    return not parentheses_stack
 
 
 if __name__ == '__main__':

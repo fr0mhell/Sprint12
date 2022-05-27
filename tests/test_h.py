@@ -12,4 +12,10 @@ class PuzzleHTestCase(TestCase):
         self.assertFalse(parentheses_sequence('[{]}'))
 
     def test_invalid_sequence_odd_length(self):
-        self.assertFalse(parentheses_sequence('[[[]]'))
+        self.assertFalse(parentheses_sequence('[{[]}'))
+
+    def test_invalid_sequence_opening_less_than_closing(self):
+        self.assertFalse(parentheses_sequence('{[]})]'))
+
+    def test_invalid_sequence_opening_more_than_closing(self):
+        self.assertFalse(parentheses_sequence('[({[]}'))
