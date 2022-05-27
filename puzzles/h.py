@@ -10,6 +10,9 @@ pairs = {
 def parentheses_sequence(sequence: str) -> bool:
     parentheses_stack = []
 
+    if len(sequence) % 2:
+        return False
+
     for symbol in sequence:
         if symbol in opening:
             parentheses_stack.append(symbol)
