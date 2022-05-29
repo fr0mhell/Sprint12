@@ -18,3 +18,5 @@
 - [How to Convert a Recursive Function or Algorithm to Non-Recursive?](https://www.thecrazyprogrammer.com/2014/02/how-to-convert-recursive-function-or-algorithm-to-non-recursive.html)
 - [Premature Optimization ?— Don't waste your time on it!](https://medium.com/@vu.pham/premature-optimization-dont-waste-your-time-on-it-a6c6fe89caf5)
 - [Why Premature Optimization Is the Root of All Evil](https://stackify.com/premature-optimization-evil/)
+- [Tuple Assignment, Packing, and Unpacking](https://realpython.com/lessons/tuple-assignment-packing-unpacking/)
+- [Data Classes in Python 3.7+ (Guide)](https://realpython.com/python-data-classes/)
